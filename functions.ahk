@@ -12,7 +12,6 @@ ResizeWindow(width, height) {
     WinMove((A_ScreenWidth / 2) - (width / 2), (A_ScreenHeight / 2) - (height / 2), 1400, 850, "A")
 }
 
-
 LaunchOrToggleProgram(programTitle, ahkexe, programPath, workingDir := "", maximize := true, minimize := false) {
     winID := programTitle " " ahkexe
     if WinExist(winID) {

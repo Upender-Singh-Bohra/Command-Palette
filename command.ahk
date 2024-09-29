@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0+
 #Include variables.ahk
 #Include functions.ahk
+#Include tray-menu-settings.ahk
 
 #WinActivateForce
 SendMode ("Input")
@@ -293,3 +294,11 @@ Lalt & f16:: {
     }
     Return
 }
+
+; ----- Script Management -----
+
+Lalt & f17:: Reload
+
+#SuspendExempt
+Lalt & f18:: SuspendScript
+#SuspendExempt False

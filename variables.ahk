@@ -106,4 +106,3 @@ photoshopPath := "C:\Program Files\Adobe\Adobe Photoshop 2024\Photoshop.exe"
 obsTitle := ""
 obsPath := "C:\Program Files (others)\obs-studio\bin\64bit\obs64.exe"
 streamerbotPath := "C:\Program Files (others)\Streamer.bot-x64-0.2.4\Streamer.bot.exe"
-
