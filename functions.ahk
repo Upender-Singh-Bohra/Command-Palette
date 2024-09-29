@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0
 
 ResizeWindow(width, height) {
-    active_class := WinGetClass("A")
-    ignore_classes := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow", "Shell_TrayWnd", "TopLevelWindowForOverflowXamlIsland"]
-    for _, class in ignore_classes {
-        if (active_class = class) {
+    activeClass := WinGetClass("A")
+    ignoreClasses := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow", "Shell_TrayWnd", "TopLevelWindowForOverflowXamlIsland"]
+    for _, class in ignoreClasses {
+        if (activeClass = class) {
             return
         }
     }
     WinRestore("A")
     WinMove((A_ScreenWidth / 2) - (width / 2), (A_ScreenHeight / 2) - (height / 2), 1400, 850, "A")
 }
-
 
 LaunchOrToggleProgram(programTitle, ahkexe, programPath, workingDir := "", maximize := true, minimize := false) {
     winID := programTitle " " ahkexe
@@ -54,28 +53,28 @@ LaunchProgram(ahkexe, programPath, workingDir := "", maximize := true, minimize 
 }
 
 OpenChrome(profile) {
-    if WinExist(ahkexe_chrome) {
-        if WinActive(ahkexe_chrome) {
-            WinMinimize(ahkexe_chrome)
+    if WinExist(ahkexe.chrome) {
+        if WinActive(ahkexe.chrome) {
+            WinMinimize(ahkexe.chrome)
             WinActivate ("ahk_class Shell_TrayWnd")
         } else {
-            WinActivate(ahkexe_chrome)
+            WinActivate(ahkexe.chrome)
         }
     } else {
-        Run(path_chrome . " --profile-directory=" '"' profile '"')
-        WinWait(ahkexe_chrome)
-        WinActivate(ahkexe_chrome)
+        Run(chromePath . " --profile-directory=" '"' profile '"')
+        WinWait(ahkexe.chrome)
+        WinActivate(ahkexe.chrome)
     }
 }
 
-OpenLink(wintitle, url, profile := profile1) {
-    Run(path_chrome " --profile-directory=" '"' profile '"' " " url)
-    WinWait(ahkexe_chrome)
-    WinActivate(ahkexe_chrome)
+OpenLink(url, profile := chromeProfile1) {
+    Run(chromePath " --profile-directory=" '"' profile '"' " " url)
+    WinWait(ahkexe.chrome)
+    WinActivate(ahkexe.chrome)
 }
 
 OpenNotionPage(pageTitle, pageID) {
-    winID := pageTitle " " ahkexe_notion
+    winID := pageTitle " " ahkexe.notion
     if WinExist(winID) {
         if WinActive(winID) {
             WinMinimize(winID)
@@ -83,20 +82,20 @@ OpenNotionPage(pageTitle, pageID) {
             WinActivate(winID)
         }
     } else {
-        if WinExist(ahkexe_notion) {
+        if WinExist(ahkexe.notion) {
             Run("notion://www.notion.so/" . pageID)
-            WinWait(ahkexe_notion)
-            WinActivate(ahkexe_notion)
+            WinWait(ahkexe.notion)
+            WinActivate(ahkexe.notion)
         } else {
-            Run(path_notion " " "notion://www.notion.so/" pageID)
-            WinWait(ahkexe_notion)
-            WinActivate(ahkexe_notion)
+            Run(notionPath " " "notion://www.notion.so/" pageID)
+            WinWait(ahkexe.notion)
+            WinActivate(ahkexe.notion)
         }
     }
 }
 
-VSCodeInFolder(foldertitle, folder) {
-    winID := foldertitle " " ahkexe_vscode
+VSCodeInFolder(folderTitle, folderPath) {
+    winID := folderTitle " " ahkexe.vscode
     if WinExist(winID) {
         if WinActive(winID) {
             WinMinimize(winID)
@@ -104,7 +103,7 @@ VSCodeInFolder(foldertitle, folder) {
             WinActivate(winID)
         }
     } else {
-        Run('"' path_vscode '"' " " ' "' folder '"')
+        Run('"' vscodePath '"' " " ' "' folderPath '"')
         WinWait(winID)
         WinActivate(winID)
     }
@@ -128,8 +127,8 @@ VscodeInCurrentFolder() {
         ; MsgBox "Can't fetch path for this directory", "Warning", 64
         Return
     }
-    explorer_path := A_Clipboard
-    Run('"' path_vscode '"' " " '"' explorer_path '"')
+    explorerPath := A_Clipboard
+    Run('"' vscodePath '"' " " '"' explorerPath '"')
     if (ErrorLevel) {
         MsgBox ("Failed to launch Visual Studio Code. ErrorLevel: " . ErrorLevel)
     }
@@ -154,13 +153,13 @@ TerminalInCurrentFolder() {
         Return
     }
 
-    explorer_path := A_Clipboard
-    if (explorer_path ~= "^[A-Z]:\\$") {
-        explorer_path := explorer_path . " "
-        Run("wt.exe -d " explorer_path)
+    explorerPath := A_Clipboard
+    if (explorerPath ~= "^[A-Z]:\\$") {
+        explorerPath := explorerPath . " "
+        Run("wt.exe -d " explorerPath)
     }
     else {
-        Run("wt.exe -d " '"' explorer_path '"')
+        Run("wt.exe -d " '"' explorerPath '"')
     }
     if (ErrorLevel) {
         MsgBox ("Failed to launch Visual Studio Code. ErrorLevel: " . ErrorLevel)
@@ -169,17 +168,17 @@ TerminalInCurrentFolder() {
 
 CloseActiveWindow() {
     try {
-        active_class := WinGetClass("A")
-        ignore_classes := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow"]
-        for _, class in ignore_classes {
-            if (active_class = class) {
+        activeClass := WinGetClass("A")
+        ignoreClasses := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow"]
+        for _, class in ignoreClasses {
+            if (activeClass = class) {
                 MsgBox("The active window is the desktop or Start menu. Exiting script.", "Warning", 64)
                 return
             }
         }
 
-        active_id := WinGetID("A")
-        WinClose("ahk_id " active_id)
+        activeID := WinGetID("A")
+        WinClose("ahk_id " activeID)
     }
     catch {
         ; Emtpy catch block to ignore errors from WinGetID("A")
@@ -188,9 +187,9 @@ CloseActiveWindow() {
 
 KillActiveProgram() {
     PID := WinGetPID("A")
-    active_class := WinGetClass("A")
-    excluded_classes := "^(WorkerW|DV2ControlHost|CabinetWClass|Shell_TrayWnd|TopLevelWindowForOverflowXamlIsland|Windows.UI.Core.CoreWindow|RainmeterMeterWindow)$"
-    if (RegExMatch(active_class, excluded_classes)) {
+    activeClass := WinGetClass("A")
+    excludedClasses := "^(WorkerW|DV2ControlHost|CabinetWClass|Shell_TrayWnd|TopLevelWindowForOverflowXamlIsland|Windows.UI.Core.CoreWindow|RainmeterMeterWindow)$"
+    if (RegExMatch(activeClass, excludedClasses)) {
         MsgBox("The active window can not be terminated", "Warning", 64)
         return
     }

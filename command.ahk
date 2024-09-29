@@ -39,17 +39,17 @@ Rctrl & f16:: {
 }
 
 Rctrl & f17:: {
-    SwitchPlaybackDevice(speaker)
+    SwitchPlaybackDevice(playbackDevices.speaker)
     Return
 }
 
 Rctrl & f18:: {
-    SwitchPlaybackDevice(headphones)
+    SwitchPlaybackDevice(playbackDevices.headphones)
     Return
 }
 
 Rctrl & f19:: {
-    LaunchOrToggleProgram(title_vscode, ahkexe_vscode, path_vscode)
+    LaunchOrToggleProgram(vscodeTitle, ahkexe.vscode, vscodePath)
     Return
 }
 
@@ -64,22 +64,22 @@ Rctrl & f23:: {
 }
 
 Rctrl & f24:: {
-    LaunchOrToggleProgram(title_algo, ahkexe_explorer, path_algo)
+    LaunchOrToggleProgram(algoTitle, ahkexe.explorer, algoPath)
     Return
 }
 
 Ralt & f13:: {
-    VSCodeInFolder(title_webdev, path_webdev)
+    VSCodeInFolder(webdevTitle, webdevPath)
     Return
 }
 
 Ralt & f15:: {
-    LaunchOrToggleProgram(title_projects, ahkexe_explorer, path_projects)
+    LaunchOrToggleProgram(projectsTitle, ahkexe.explorer, projectsPath)
     Return
 }
 
 Ralt & f16:: {
-    VSCodeInFolder(title_projects, path_projects)
+    VSCodeInFolder(projectsTitle, projectsPath)
     KeyWait ("Ralt")
     KeyWait ("f14")
     Return
@@ -90,91 +90,91 @@ Ralt & f17:: {
 }
 
 Rctrl & f21:: { ; (Rctrl & f21) and (Rctrl & f22) were missed before
-    LaunchOrToggleProgram(title_terminal, ahkexe_terminal, path_terminal, , false)
+    LaunchOrToggleProgram(terminalTitle, ahkexe.terminal, terminalPath, , false)
     KeyWait("Rctrl")
     KeyWait("f21")
     Return
 }
 
 Ralt & f18:: {
-    LaunchOrToggleProgram(title_notion, ahkexe_notion, path_notion)
+    LaunchOrToggleProgram(notionTitle, ahkexe.notion, notionPath)
     Return
 }
 
 Ralt & f19:: {
-    OpenNotionPage(pagetitle_todo, pageID_todo)
+    OpenNotionPage(todoPageTitle, todoPageID)
     Return
 }
 
 Ralt & f20:: {
-    OpenNotionPage(pagetitle_deadlines, pageID_deadlines)
+    OpenNotionPage(deadlinesPageTitle, deadlinesPageID)
     Return
 }
 
 Ralt & f21:: {
-    OpenNotionPage(pagetitle_leetcode, pageID_leetcode)
+    OpenNotionPage(leetcodePageTitle, leetcodePageID)
     Return
 }
 
 Ralt & f22:: {
-    OpenNotionPage(pagetitle_notes, pageID_notes)
+    OpenNotionPage(notesPageTitle, notesPageID)
     Return
 }
 
 Ralt & f23:: {
-    OpenNotionPage(pagetitle_lifeforce, pageID_lifeforce)
+    OpenNotionPage(lifeforcePageTitle, lifeforcePageID)
     Return
 }
 
 Ralt & f24:: {
-    LaunchOrToggleProgram(title_keepass, ahkexe_keepass, path_keepass, , false)
+    LaunchOrToggleProgram(keepassTitle, ahkexe.keepass, keepassPath, , false)
     Return
 }
 
 Rshift & f13:: {
-    LaunchProgram(ahkexe_photoshop, path_photoshop)
+    LaunchProgram(ahkexe.photoshop, photoshopPath)
     Return
 }
 
 Rshift & f14:: {
-    OpenChrome(profile1)
+    OpenChrome(chromeProfile1)
     Return
 }
 
 Rshift & f15:: {
-    LaunchOrToggleProgram(title_downloads1, ahkexe_explorer, path_downloads1)
+    LaunchOrToggleProgram(downloads1Title, ahkexe.explorer, downloads1Path)
     Return
 }
 
 Rshift & f16:: {
-    LaunchOrToggleProgram(title_downloads2, ahkexe_explorer, path_downloads2)
+    LaunchOrToggleProgram(downloads2Title, ahkexe.explorer, downloads2Path)
     Return
 }
 
 ; ----- Primary URLs -----
 
 Rshift & f17:: {
-    OpenLink("<firstmail@gmail.com - gmail>", "mail.google.com/mail/u/0/#inbox")
+    OpenLink("mail.google.com/mail/u/0/#inbox")
     Return
 }
 
 Rshift & f18:: {
-    OpenLink("<secondmail@gmail.com - gmail>", "mail.google.com/mail/u/1/#inbox")
+    OpenLink("mail.google.com/mail/u/1/#inbox")
     Return
 }
 
 Rshift & f19:: {
-    OpenLink("whatsapp", "web.whatsapp.com/")
+    OpenLink("web.whatsapp.com/")
     Return
 }
 
 Rshift & f20:: {
-    OpenLink("github", "github.com")
+    OpenLink("github.com")
     Return
 }
 
 Rshift & f21:: {
-    OpenLink("chatgpt", "chatgpt.com")
+    OpenLink("chatgpt.com")
     Return
 }
 
@@ -232,17 +232,17 @@ Lctrl & f19:: {
 }
 
 Lctrl & f20:: {
-    SwtichPowerPlan(guid_highperformance, "High Performance Plan (Active)", sound_highperformance)
+    SwtichPowerPlan(highperformance.guid, "High Performance Plan (Active)", highperformance.soundPath)
     Return
 }
 
 Lctrl & f21:: {
-    SwtichPowerPlan(guid_studyplan, "Study Plan (Active)", sound_studyplan)
+    SwtichPowerPlan(highperformanceNoSleep.guid, "High Performance + No Sleep (Active)", highperformanceNoSleep.soundPath)
     Return
 }
 
 Lctrl & f22:: {
-    SwtichPowerPlan(guid_powersaver, "Power Saver Plan (Active)", sound_powersaver)
+    SwtichPowerPlan(powersaver.guid, "Power Saver Plan (Active)", powersaver.soundPath)
     Return
 }
 
@@ -270,22 +270,22 @@ Lalt & f14:: {
     Return
 }
 
-#HotIf WinExist(ahkexe_obs)
+#HotIf WinExist(ahkexe.obs)
 Lalt & f15:: {
-    LaunchOrToggleProgram(title_obs, ahkexe_obs, path_obs, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
+    LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
     Return
 }
 #HotIf
 
 Lalt & f15:: {
-    LaunchOrToggleProgram(title_obs, ahkexe_obs, path_obs, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
-    LaunchProgram(ahkexe_streamerbot, path_streamerbot, , false, true)
+    LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
+    LaunchProgram(ahkexe.streamerbot, streamerbotPath, , false, true)
     Return
 }
 
 Lalt & f16:: {
     try {
-        WinClose(ahkexe_obs)
+        WinClose(ahkexe.obs)
         ProcessClose("Streamer.bot.exe")
     }
     catch {
