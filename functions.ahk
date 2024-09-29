@@ -12,6 +12,7 @@ ResizeWindow(width, height) {
     WinMove((A_ScreenWidth / 2) - (width / 2), (A_ScreenHeight / 2) - (height / 2), 1400, 850, "A")
 }
 
+
 LaunchOrToggleProgram(programTitle, ahkexe, programPath, workingDir := "", maximize := true, minimize := false) {
     winID := programTitle " " ahkexe
     if WinExist(winID) {
@@ -71,6 +72,30 @@ OpenLink(url, profile := chromeProfile1) {
     Run(chromePath " --profile-directory=" '"' profile '"' " " url)
     WinWait(ahkexe.chrome)
     WinActivate(ahkexe.chrome)
+}
+
+FindOrOpenChromeTab(tabName, url, profile := chromeProfile1) {
+    chromeCount := WinGetCount(ahkexe.chrome)
+    activeTab := ""
+    firstTab := ""
+
+    Loop chromeCount {
+        WinActivateBottom(ahkexe.chrome)
+        WinWaitActive(ahkexe.chrome)
+        firstTab := WinGetTitle("A")
+        If InStr(firstTab, tabName)
+            return true
+        While !(activeTab = firstTab) {
+            Send("^{tab}")
+            Sleep(50)
+            activeTab := WinGetTitle("A")
+            If InStr(activeTab, tabName)
+                return true
+        }
+    }
+
+    Run(chromePath " --profile-directory=" '"' profile '"' " " url)
+    return false
 }
 
 OpenNotionPage(pageTitle, pageID) {

@@ -154,27 +154,27 @@ Rshift & f16:: {
 ; ----- Primary URLs -----
 
 Rshift & f17:: {
-    OpenLink("mail.google.com/mail/u/0/#inbox")
+    FindOrOpenChromeTab("<firstmail@gmail.com - gmail>", "mail.google.com/mail/u/0/#inbox")
     Return
 }
 
 Rshift & f18:: {
-    OpenLink("mail.google.com/mail/u/1/#inbox")
+    FindOrOpenChromeTab("<secondmail@gmail.com> - gmail", "mail.google.com/mail/u/1/#inbox")
     Return
 }
 
 Rshift & f19:: {
-    OpenLink("web.whatsapp.com/")
+    FindOrOpenChromeTab("whatsapp", "web.whatsapp.com/")
     Return
 }
 
 Rshift & f20:: {
-    OpenLink("github.com")
+    FindOrOpenChromeTab("github", "github.com")
     Return
 }
 
 Rshift & f21:: {
-    OpenLink("chatgpt.com")
+    FindOrOpenChromeTab("chatgpt", "chatgpt.com")
     Return
 }
 
