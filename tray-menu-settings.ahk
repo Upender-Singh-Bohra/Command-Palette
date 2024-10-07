@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 A_IconTip := "Command Palette"
-TraySetIcon(A_ScriptDir . "\tray-icon.ico")
+TraySetIcon(A_ScriptDir . "\assets\command.ico")
 
 Tray := A_TrayMenu
 Tray.Delete()
@@ -11,7 +11,7 @@ Tray.Add()
 Tray.Add("Windows Spy", WindowsSpy)
 Tray.Add("Reload Script", ReloadScript)
 Tray.Add()
-Tray.Add("Suspend Script", SuspendScript)
+Tray.Add("Suspend Keys", SuspendScript)
 Tray.Add("Pause Script", PauseScript)
 Tray.Add("Exit", Exit)
 
@@ -29,7 +29,7 @@ ReloadScript(*) {
 }
 
 SuspendScript(*) {
-    Tray.ToggleCheck("Suspend Script")
+    Tray.ToggleCheck("Suspend Keys")
     Suspend
 }
 

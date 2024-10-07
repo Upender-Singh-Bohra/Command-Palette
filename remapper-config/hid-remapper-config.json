@@ -11,7 +11,7 @@
         7
     ],
     "partial_scroll_timeout": 1000000,
-    "tap_hold_threshold": 250000,
+    "tap_hold_threshold": 200000,
     "gpio_debounce_time_ms": 5,
     "interval_override": 0,
     "our_descriptor_number": 0,
@@ -1964,7 +1964,7 @@
                 0
             ],
             "sticky": false,
-            "tap": false,
+            "tap": true,
             "hold": false,
             "source_port": 0,
             "target_port": 0
@@ -1977,7 +1977,59 @@
                 0
             ],
             "sticky": false,
+            "tap": true,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e2",
+            "source_usage": "0x0007002e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
             "tap": false,
+            "hold": true,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x00070069",
+            "source_usage": "0x0007002e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": true,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e2",
+            "source_usage": "0x0007002a",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": true,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x0007006a",
+            "source_usage": "0x0007002a",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": true,
             "hold": false,
             "source_port": 0,
             "target_port": 0
@@ -1991,12 +2043,12 @@
             ],
             "sticky": false,
             "tap": false,
-            "hold": false,
+            "hold": true,
             "source_port": 0,
             "target_port": 0
         },
         {
-            "target_usage": "0x00070069",
+            "target_usage": "0x0007006b",
             "source_usage": "0x0007002a",
             "scaling": 1000,
             "layers": [
@@ -2004,7 +2056,7 @@
             ],
             "sticky": false,
             "tap": false,
-            "hold": false,
+            "hold": true,
             "source_port": 0,
             "target_port": 0
         },
@@ -2022,7 +2074,7 @@
             "target_port": 0
         },
         {
-            "target_usage": "0x0007006a",
+            "target_usage": "0x0007006c",
             "source_usage": "0x00070029",
             "scaling": 1000,
             "layers": [
@@ -2048,7 +2100,7 @@
             "target_port": 0
         },
         {
-            "target_usage": "0x0007006b",
+            "target_usage": "0x0007006d",
             "source_usage": "0x00070029",
             "scaling": 1000,
             "layers": [
@@ -2074,7 +2126,7 @@
             "target_port": 0
         },
         {
-            "target_usage": "0x0007006c",
+            "target_usage": "0x0007006e",
             "source_usage": "0x0007004c",
             "scaling": 1000,
             "layers": [
@@ -2100,7 +2152,7 @@
             "target_port": 0
         },
         {
-            "target_usage": "0x0007006d",
+            "target_usage": "0x0007006f",
             "source_usage": "0x00070045",
             "scaling": 1000,
             "layers": [

@@ -196,8 +196,8 @@ CloseActiveWindow() {
         ignoreClasses := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow"]
         for _, class in ignoreClasses {
             if (activeClass = class) {
-                MsgBox("The active window is the desktop or Start menu. Exiting script.", "Warning", 64)
-                return
+                MsgBox("The active window belongs to a protected class (" class "). Closing it is restricted.", "Warning", 48)
+                Return
             }
         }
 
@@ -214,7 +214,7 @@ KillActiveProgram() {
     activeClass := WinGetClass("A")
     excludedClasses := "^(WorkerW|DV2ControlHost|CabinetWClass|Shell_TrayWnd|TopLevelWindowForOverflowXamlIsland|Windows.UI.Core.CoreWindow|RainmeterMeterWindow)$"
     if (RegExMatch(activeClass, excludedClasses)) {
-        MsgBox("The active window can not be terminated", "Warning", 64)
+        MsgBox("This window cannot be terminated as it is a critical system component.", "Warning", 48)
         return
     }
     ProcessClose(PID)
@@ -241,7 +241,7 @@ SwitchPlaybackDevice(devicename) {
     TrayTip()
 }
 
-SystemShutdown() {
+FastStartupShutdown() {
     result := MsgBox("Are you sure?", "Shutdown Confirmation", 4 | 48)
     if result = "Yes"
     {

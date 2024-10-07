@@ -87,11 +87,11 @@ Ralt & f16:: {
 }
 
 Ralt & f17:: {
-    TerminalInCurrentFolder()
+    LaunchOrToggleProgram(terminalTitle, ahkexe.terminal, terminalPath, , false)
 }
 
 Rctrl & f21:: { ; (Rctrl & f21) and (Rctrl & f22) were missed before
-    LaunchOrToggleProgram(terminalTitle, ahkexe.terminal, terminalPath, , false)
+    TerminalInCurrentFolder()
     KeyWait("Rctrl")
     KeyWait("f21")
     Return
@@ -160,7 +160,7 @@ Rshift & f17:: {
 }
 
 Rshift & f18:: {
-    FindOrOpenChromeTab("<secondmail@gmail.com> - gmail", "mail.google.com/mail/u/1/#inbox")
+    FindOrOpenChromeTab("<secondmail@gmail.com - gmail>", "mail.google.com/mail/u/1/#inbox")
     Return
 }
 
@@ -170,12 +170,12 @@ Rshift & f19:: {
 }
 
 Rshift & f20:: {
-    FindOrOpenChromeTab("github", "github.com")
+    FindOrOpenChromeTab("ChatGPT", "chatgpt.com")
     Return
 }
 
 Rshift & f21:: {
-    FindOrOpenChromeTab("chatgpt", "chatgpt.com")
+    OpenLink("github.com")
     Return
 }
 
@@ -248,43 +248,67 @@ Lctrl & f22:: {
 }
 
 Lctrl & f23:: {
-    SystemShutdown()
+    Run("nircmd monitor off")
     Return
 }
 
 Lctrl & f24:: {
-    Run("power\power-states\full-shutdown\full_shutdown.exe")
-    WinWait("Shutdown Windows")
-    WinActivate("Shutdown Windows")
-    Return
-}
-
-Lalt & f13:: {
     Run("power\power-states\restart\restart.exe")
     WinWait("Restart Windows")
     WinActivate("Restart Windows")
     Return
 }
 
+Lalt & f13:: {
+    FastStartupShutdown()
+}
+
 Lalt & f14:: {
+    Run("power\power-states\full-shutdown\full_shutdown.exe")
+    WinWait("Shutdown Windows")
+    WinActivate("Shutdown Windows")
+    KeyWait("Lalt")
+    KeyWait("f14")
+    Return
+}
+
+Lalt & f15:: {
     SystemSleep()
     Return
 }
 
-#HotIf WinExist(ahkexe.obs)
-Lalt & f15:: {
-    LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
-    Return
+Lalt & f16:: {
+    DetectHiddenWindows True
+    if !WinExist("auto-shutdown.ahk") {
+        Run("auto-shutdown.ahk")
+        DetectHiddenWindows False
+        KeyWait("Lalt")
+        KeyWait("f16")
+        Return
+    }
+    else {
+        DetectHiddenWindows False
+        MsgBox("Auto Shutdown is already running!", "Warning", 0 | 64)
+        KeyWait("Lalt")
+        KeyWait("f16")
+        Return
+    }
 }
-#HotIf
 
-Lalt & f15:: {
+Lalt & f17:: {
     LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
     LaunchProgram(ahkexe.streamerbot, streamerbotPath, , false, true)
     Return
 }
 
-Lalt & f16:: {
+#HotIf WinExist(ahkexe.obs)
+Lalt & f17:: {
+    LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
+    Return
+}
+#HotIf
+
+Lalt & f18:: {
     try {
         WinClose(ahkexe.obs)
         ProcessClose("Streamer.bot.exe")
@@ -297,8 +321,8 @@ Lalt & f16:: {
 
 ; ----- Script Management -----
 
-Lalt & f17:: Reload
+Lalt & f19:: Reload
 
 #SuspendExempt
-Lalt & f18:: SuspendScript
+Lalt & f20:: SuspendScript
 #SuspendExempt False
