@@ -1,14 +1,15 @@
-#Requires AutoHotkey v2.0+
-#Include variables.ahk
-#Include functions.ahk
-#Include tray-menu-settings.ahk
-
+#Requires AutoHotkey v2.0
 #WinActivateForce
+#SingleInstance Force
+
+#Include "functions.ahk"
+#Include "tray-menu-settings.ahk"
+#Include "variables.ahk"
+
+Persistent
 SendMode ("Input")
 SetTitleMatchMode(2)
-#SingleInstance Force
 SetWorkingDir A_InitialWorkingDir
-
 
 #HotIf WinExist("ahk_class Qt51511QWindowIcon")
 ::fff::nothingtolookhere:)
@@ -16,14 +17,14 @@ SetWorkingDir A_InitialWorkingDir
 
 Rctrl & f13:: {
     CloseActiveWindow()
-    Return
+    return
 }
 
 Rctrl & f14:: {
     KillActiveProgram()
     KeyWait ("Rctrl")
     KeyWait ("f14")
-    Return
+    return
 }
 
 Rctrl & f15:: {
@@ -31,59 +32,59 @@ Rctrl & f15:: {
     SoundSetVolume 18
     KeyWait ("Rctrl")
     KeyWait ("f15")
-    Return
+    return
 }
 
 Rctrl & f16:: {
-    Run("sound\mic-mute\mic_mute.exe")
-    Return
+    Run('python "sound\mic-mute\mic_mute.py"', , "Hide")
+    return
 }
 
 Rctrl & f17:: {
     SwitchPlaybackDevice(playbackDevices.speaker)
-    Return
+    return
 }
 
 Rctrl & f18:: {
     SwitchPlaybackDevice(playbackDevices.headphones)
-    Return
+    return
 }
 
 Rctrl & f19:: {
     LaunchOrToggleProgram(vscodeTitle, ahkexe.vscode, vscodePath)
-    Return
+    return
 }
 
 Rctrl & f20:: {
     ResizeWindow(1400, 850)
-    Return
+    return
 }
 
 Rctrl & f23:: {
     VscodeInCurrentFolder()
-    Return
+    return
 }
 
 Rctrl & f24:: {
     LaunchOrToggleProgram(algoTitle, ahkexe.explorer, algoPath)
-    Return
+    return
 }
 
 Ralt & f13:: {
     VSCodeInFolder(webdevTitle, webdevPath)
-    Return
+    return
 }
 
 Ralt & f15:: {
     LaunchOrToggleProgram(projectsTitle, ahkexe.explorer, projectsPath)
-    Return
+    return
 }
 
 Ralt & f16:: {
     VSCodeInFolder(projectsTitle, projectsPath)
     KeyWait ("Ralt")
     KeyWait ("f14")
-    Return
+    return
 }
 
 Ralt & f17:: {
@@ -94,217 +95,209 @@ Rctrl & f21:: { ; (Rctrl & f21) and (Rctrl & f22) were missed before
     TerminalInCurrentFolder()
     KeyWait("Rctrl")
     KeyWait("f21")
-    Return
+    return
 }
 
 Ralt & f18:: {
     LaunchOrToggleProgram(notionTitle, ahkexe.notion, notionPath)
-    Return
+    return
 }
 
 Ralt & f19:: {
     OpenNotionPage(todoPageTitle, todoPageID)
-    Return
+    return
 }
 
 Ralt & f20:: {
     OpenNotionPage(deadlinesPageTitle, deadlinesPageID)
-    Return
+    return
 }
 
 Ralt & f21:: {
     OpenNotionPage(leetcodePageTitle, leetcodePageID)
-    Return
+    return
 }
 
 Ralt & f22:: {
     OpenNotionPage(notesPageTitle, notesPageID)
-    Return
+    return
 }
 
 Ralt & f23:: {
     OpenNotionPage(lifeforcePageTitle, lifeforcePageID)
-    Return
+    return
 }
 
 Ralt & f24:: {
     LaunchOrToggleProgram(keepassTitle, ahkexe.keepass, keepassPath, , false)
-    Return
+    return
 }
 
 Rshift & f13:: {
     LaunchProgram(ahkexe.photoshop, photoshopPath)
-    Return
+    return
 }
+
+#HotIf WinExist("Sleep Confirmation ahk_exe AutoHotkey64.exe")
+OR WinExist("Shutdown Confirmation ahk_exe AutoHotkey64.exe")
+OR WinExist("Full-Shutdown Confirmation ahk_exe python.exe")
+OR WinExist("Restart Confirmation ahk_exe python.exe")
+Rshift & f13:: {
+    Send "{Enter}"
+}
+#HotIf
 
 Rshift & f14:: {
     OpenChrome(chromeProfile1)
-    Return
+    return
 }
 
 Rshift & f15:: {
     LaunchOrToggleProgram(downloads1Title, ahkexe.explorer, downloads1Path)
-    Return
+    return
 }
 
 Rshift & f16:: {
     LaunchOrToggleProgram(downloads2Title, ahkexe.explorer, downloads2Path)
-    Return
+    return
 }
 
 ; ----- Primary URLs -----
 
 Rshift & f17:: {
     FindOrOpenChromeTab("<firstmail@gmail.com - gmail>", "mail.google.com/mail/u/0/#inbox")
-    Return
+    return
 }
 
 Rshift & f18:: {
     FindOrOpenChromeTab("<secondmail@gmail.com - gmail>", "mail.google.com/mail/u/1/#inbox")
-    Return
+    return
 }
 
 Rshift & f19:: {
-    FindOrOpenChromeTab("whatsapp", "web.whatsapp.com/")
-    Return
+    FindOrOpenChromeTab("whatsapp", "web.whatsapp.com")
+    return
 }
 
 Rshift & f20:: {
     FindOrOpenChromeTab("ChatGPT", "chatgpt.com")
-    Return
+    return
 }
 
 Rshift & f21:: {
     OpenLink("github.com")
-    Return
+    return
 }
 
 ; ----- Other URLs -----
 
-; Rshift & f22:: {
+Rshift & f22:: {
+    FindOrOpenChromeTab("YouTube - Google Chrome", "youtube.com")
+    return
+}
 
-;     Return
-; }
+; ----- Optional Hotkeys Placeholder -----
 
-; Rshift & f23:: {
+; Rshift & f23:: { }
 
-;     Return
-; }
+; Rshift & f24:: { }
 
-; Rshift & f24:: {
+; Lctrl & f13:: { }
 
-;     Return
-; }
+; Lctrl & f14:: { }
 
-; Lctrl & f13:: {
-
-;     Return
-; }
-
-; Lctrl & f14:: {
-
-;     Return
-; }
-
-; Lctrl & f15:: {
-
-;     Return
-; }
+; Lctrl & f15:: { }
 
 Lctrl & f17:: {
     SetWorkingDir(A_ScriptDir "\obs")
     Run("recording-desktop.vbs")
     SetWorkingDir A_InitialWorkingDir
-    Return
+    return
 }
 
 Lctrl & f18:: {
     SetWorkingDir(A_ScriptDir "\obs")
     Run("screen-webcam.vbs")
     SetWorkingDir A_InitialWorkingDir
-    Return
+    return
 }
 
 Lctrl & f19:: {
     SetWorkingDir(A_ScriptDir "\obs")
     Run("webcam.vbs")
     SetWorkingDir A_InitialWorkingDir
-    Return
+    return
 }
 
 Lctrl & f20:: {
-    SwtichPowerPlan(highperformance.guid, "High Performance Plan (Active)", highperformance.soundPath)
-    Return
+    SwitchPowerPlan(highperformance.guid, "High Performance Plan (Active)", highperformance.soundPath)
+    return
 }
 
 Lctrl & f21:: {
-    SwtichPowerPlan(highperformanceNoSleep.guid, "High Performance + No Sleep (Active)", highperformanceNoSleep.soundPath)
-    Return
+    SwitchPowerPlan(highperformanceNoSleep.guid, "High Performance + No Sleep (Active)", highperformanceNoSleep.soundPath)
+    return
 }
 
 Lctrl & f22:: {
-    SwtichPowerPlan(powersaver.guid, "Power Saver Plan (Active)", powersaver.soundPath)
-    Return
+    SwitchPowerPlan(powersaver.guid, "Power Saver Plan (Active)", powersaver.soundPath)
+    return
 }
 
 Lctrl & f23:: {
-    Run("nircmd monitor off")
-    Return
+    ToggleMonitorPower()
+    return
 }
 
 Lctrl & f24:: {
-    Run("power\power-states\restart\restart.exe")
-    WinWait("Restart Windows")
-    WinActivate("Restart Windows")
-    Return
+    FastStartupShutdown()
+    return
 }
 
 Lalt & f13:: {
-    FastStartupShutdown()
+    Run('python "power\full_shutdown.py"', , "Hide")
+    WinWait("Full-Shutdown Confirmation ahk_exe python.exe")
+    WinActivate("Full-Shutdown Confirmation ahk_exe python.exe")
+    KeyWait("Lalt")
+    KeyWait("f13")
+    return
 }
 
 Lalt & f14:: {
-    Run("power\power-states\full-shutdown\full_shutdown.exe")
-    WinWait("Shutdown Windows")
-    WinActivate("Shutdown Windows")
-    KeyWait("Lalt")
-    KeyWait("f14")
-    Return
+    Run('python "power\restart.py"', , "Hide")
+    WinWait("Restart Confirmation ahk_exe python.exe")
+    WinActivate("Restart Confirmation ahk_exe python.exe")
+    return
 }
 
 Lalt & f15:: {
     SystemSleep()
-    Return
+    return
 }
 
 Lalt & f16:: {
     DetectHiddenWindows True
-    if !WinExist("auto-shutdown.ahk") {
-        Run("auto-shutdown.ahk")
-        DetectHiddenWindows False
-        KeyWait("Lalt")
-        KeyWait("f16")
-        Return
+    if !WinExist("auto-shutdown.ahk ahk_exe AutoHotkey64.exe") {
+        Run("power\auto-shutdown.ahk")
+    } else {
+        MsgBox("Auto Shutdown is already running!", "Warning", 0 | 48)
     }
-    else {
-        DetectHiddenWindows False
-        MsgBox("Auto Shutdown is already running!", "Warning", 0 | 64)
-        KeyWait("Lalt")
-        KeyWait("f16")
-        Return
-    }
+    DetectHiddenWindows False
+    KeyWait("Lalt")
+    KeyWait("f16")
+    return
 }
 
 Lalt & f17:: {
     LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
     LaunchProgram(ahkexe.streamerbot, streamerbotPath, , false, true)
-    Return
+    return
 }
 
 #HotIf WinExist(ahkexe.obs)
 Lalt & f17:: {
     LaunchOrToggleProgram(obsTitle, ahkexe.obs, obsPath, "C:\Program Files (others)\obs-studio\bin\64bit\", false)
-    Return
+    return
 }
 #HotIf
 
@@ -316,7 +309,7 @@ Lalt & f18:: {
     catch {
 
     }
-    Return
+    return
 }
 
 ; ----- Script Management -----
@@ -324,5 +317,7 @@ Lalt & f18:: {
 Lalt & f19:: Reload
 
 #SuspendExempt
-Lalt & f20:: SuspendScript
+Lalt & f20:: {
+    SuspendScript
+}
 #SuspendExempt False

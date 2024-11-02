@@ -1008,138 +1008,8 @@
             "target_port": 0
         },
         {
-            "target_usage": "0x000700e5",
-            "source_usage": "0x0007000d",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x00070014",
-            "source_usage": "0x0007000d",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e4",
-            "source_usage": "0x0007000e",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e5",
-            "source_usage": "0x0007000e",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x00070004",
-            "source_usage": "0x0007000e",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e4",
-            "source_usage": "0x0007000f",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e5",
-            "source_usage": "0x0007000f",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
             "target_usage": "0x000700e6",
-            "source_usage": "0x0007000f",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x00070008",
-            "source_usage": "0x0007000f",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e4",
-            "source_usage": "0x00070033",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e5",
-            "source_usage": "0x00070033",
+            "source_usage": "0x0007000d",
             "scaling": 1000,
             "layers": [
                 0
@@ -1152,6 +1022,136 @@
         },
         {
             "target_usage": "0x00070013",
+            "source_usage": "0x0007000d",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e4",
+            "source_usage": "0x0007000e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e5",
+            "source_usage": "0x0007000e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x00070014",
+            "source_usage": "0x0007000e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e4",
+            "source_usage": "0x0007000f",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e5",
+            "source_usage": "0x0007000f",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x00070013",
+            "source_usage": "0x0007000f",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e4",
+            "source_usage": "0x00070033",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e6",
+            "source_usage": "0x00070033",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e5",
+            "source_usage": "0x00070033",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x00070008",
             "source_usage": "0x00070033",
             "scaling": 1000,
             "layers": [
@@ -1938,7 +1938,7 @@
                 0
             ],
             "sticky": false,
-            "tap": false,
+            "tap": true,
             "hold": false,
             "source_port": 0,
             "target_port": 0
@@ -1951,32 +1951,6 @@
                 0
             ],
             "sticky": false,
-            "tap": false,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x000700e2",
-            "source_usage": "0x0007002e",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
-            "tap": true,
-            "hold": false,
-            "source_port": 0,
-            "target_port": 0
-        },
-        {
-            "target_usage": "0x00070068",
-            "source_usage": "0x0007002e",
-            "scaling": 1000,
-            "layers": [
-                0
-            ],
-            "sticky": false,
             "tap": true,
             "hold": false,
             "source_port": 0,
@@ -1984,7 +1958,7 @@
         },
         {
             "target_usage": "0x000700e2",
-            "source_usage": "0x0007002e",
+            "source_usage": "0x0007002d",
             "scaling": 1000,
             "layers": [
                 0
@@ -1992,6 +1966,32 @@
             "sticky": false,
             "tap": false,
             "hold": true,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x00070068",
+            "source_usage": "0x0007002d",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": true,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "target_usage": "0x000700e2",
+            "source_usage": "0x0007002e",
+            "scaling": 1000,
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
             "source_port": 0,
             "target_port": 0
         },
@@ -2004,7 +2004,7 @@
             ],
             "sticky": false,
             "tap": false,
-            "hold": true,
+            "hold": false,
             "source_port": 0,
             "target_port": 0
         },

@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0
 
+; ----- Utility Functions -----
+ToggleMonitorPower() {
+    static monitorPower := true
+    monitorPower := !monitorPower
+    Run(monitorPower ? "nircmd monitor on" : "nircmd monitor off")
+}
+
 ResizeWindow(width, height) {
     activeClass := WinGetClass("A")
     ignoreClasses := ["WorkerW", "DV2ControlHost", "RainmeterMeterWindow", "Shell_TrayWnd", "TopLevelWindowForOverflowXamlIsland"]
@@ -12,6 +19,28 @@ ResizeWindow(width, height) {
     WinMove((A_ScreenWidth / 2) - (width / 2), (A_ScreenHeight / 2) - (height / 2), 1400, 850, "A")
 }
 
+SwitchPowerPlan(powerplanGUID, description, sound := "") {
+    if RunWait("powercfg /s " powerplanGUID, , "Hide") != 0 {
+        MsgBox "Failed to change power plan!"
+        return
+    }
+    if sound {
+        SoundPlay(sound)
+    }
+    TrayTip(description, "Power plan changed", 1)
+    Sleep 2500
+    TrayTip() ; Clear TrayTip after display duration
+}
+
+SwitchPlaybackDevice(devicename) {
+    command := "nircmd.exe setdefaultsounddevice `"" devicename . "`" 1"
+    Run(command, , "Hide")
+    TrayTip("Playback Device Changed", "Switched to: " devicename, 1)
+    Sleep 2000
+    TrayTip() ; Clear TrayTip after display duration
+}
+
+; ----- Application Launchers and Switchers -----
 LaunchOrToggleProgram(programTitle, ahkexe, programPath, workingDir := "", maximize := true, minimize := false) {
     winID := programTitle " " ahkexe
     if WinExist(winID) {
@@ -133,25 +162,33 @@ VSCodeInFolder(folderTitle, folderPath) {
     }
 }
 
+FetchActiveExplorerPath() {
+    A_Clipboard := ""
+    Send "!d"
+    Sleep 100
+    Send "^c"
+    Send "{Esc}"
+    if !ClipWait(1, 0) {
+        return
+    }
+}
+
 VscodeInCurrentFolder() {
     DetectHiddenWindows True
     winID := WinGetClass("A")
     if !(winID = "CabinetWClass" or winID = "WorkerW") {
         MsgBox "Explorer is not active", "Warning", 16
-        Return
+        return
     }
-    A_Clipboard := ""
     ErrorLevel := 0
 
-    Send "!d"
-    Sleep 100
-    Send "^c"
+    FetchActiveExplorerPath()
 
-    if !ClipWait(1, 0) {
-        ; MsgBox "Can't fetch path for this directory", "Warning", 64
-        Return
-    }
     explorerPath := A_Clipboard
+    if !(InStr(explorerPath, ":\")) {
+        MsgBox("Unable to get the folder path.", "Path Error", 48)
+        return
+    }
     Run('"' vscodePath '"' " " '"' explorerPath '"')
     if (ErrorLevel) {
         MsgBox ("Failed to launch Visual Studio Code. ErrorLevel: " . ErrorLevel)
@@ -163,21 +200,18 @@ TerminalInCurrentFolder() {
     winID := WinGetClass("A")
     if !(winID = "CabinetWClass" or winID = "WorkerW") {
         MsgBox "Explorer is not active", "Warning", 16
-        Return
+        return
     }
-    A_Clipboard := ""
     ErrorLevel := 0
 
-    Send "!d"
-    Sleep 100
-    Send "^c"
-
-    if !ClipWait(1, 0) {
-        ; MsgBox "Can't fetch path for this directory", "Warning", 64
-        Return
-    }
+    FetchActiveExplorerPath()
 
     explorerPath := A_Clipboard
+    if !(InStr(explorerPath, ":\")) {
+        MsgBox("Unable to get the folder path.", "Path Error", 48)
+        return
+    }
+
     if (explorerPath ~= "^[A-Z]:\\$") {
         explorerPath := explorerPath . " "
         Run("wt.exe -d " explorerPath)
@@ -186,10 +220,11 @@ TerminalInCurrentFolder() {
         Run("wt.exe -d " '"' explorerPath '"')
     }
     if (ErrorLevel) {
-        MsgBox ("Failed to launch Visual Studio Code. ErrorLevel: " . ErrorLevel)
+        MsgBox ("Failed to launch Terminal. ErrorLevel: " . ErrorLevel)
     }
 }
 
+; ----- Window Management -----
 CloseActiveWindow() {
     try {
         activeClass := WinGetClass("A")
@@ -197,7 +232,7 @@ CloseActiveWindow() {
         for _, class in ignoreClasses {
             if (activeClass = class) {
                 MsgBox("The active window belongs to a protected class (" class "). Closing it is restricted.", "Warning", 48)
-                Return
+                return
             }
         }
 
@@ -220,39 +255,19 @@ KillActiveProgram() {
     ProcessClose(PID)
 }
 
-SwtichPowerPlan(powerplanGUID, description, sound := "") {
-    if RunWait("powercfg /s " powerplanGUID, , "Hide") != 0 {
-        MsgBox "Failed to change power plan!"
-        Return
-    }
-    if sound {
-        SoundPlay(sound)
-    }
-    TrayTip(description, "Power plan changed", 1)
-    Sleep 2500
-    TrayTip()
-}
-
-SwitchPlaybackDevice(devicename) {
-    command := "nircmd.exe setdefaultsounddevice `"" devicename . "`" 1"
-    RunWait(command, , "Hide")
-    TrayTip("Playback Device Changed", "Switched to: " devicename, 1)
-    Sleep 2000
-    TrayTip()
-}
-
+; ----- System Functions -----
 FastStartupShutdown() {
-    result := MsgBox("Are you sure?", "Shutdown Confirmation", 4 | 48)
-    if result = "Yes"
+    response := MsgBox("Do you want to shutdown windows?", "Shutdown Confirmation", 4 | 32)
+    if response = "Yes"
     {
         DllCall("Ntdll\RtlAdjustPrivilege", "UInt", 19, "UChar", true, "UChar", false, "IntP", 0)
-        DllCall("User32\ExitWindowsEx", "UInt", 0x00400000 | 0x00000001, "UInt", 1)
+        DllCall("User32\ExitWindowsEx", "UInt", 0x00400000 | 0x00000001, "UInt", 1) ; Graceful Shutdown (without EWX_FORCE 0x00000004)
     }
 }
 
 SystemSleep() {
-    result := MsgBox("Are you sure?", "Sleep Confirmation", 4 | 48)
-    if result = "Yes"
+    response := MsgBox("Are you sure?", "Sleep Confirmation", 4 | 32)
+    if response = "Yes"
     {
         DllCall("PowrProf\SetSuspendState", "UInt", 0, "UInt", 0, "UInt", 0)
     }

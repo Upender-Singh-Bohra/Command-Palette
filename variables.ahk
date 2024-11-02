@@ -22,7 +22,7 @@ ahkexe := {
 
 playbackDevices := {
     speaker: "Speakers",
-    headphones: "Realtek HD Audio 2nd output"
+    headphones: "Headphones"
 }
 
 ; ______________________________________________________________________________
@@ -31,17 +31,17 @@ playbackDevices := {
 
 highperformance := {
     guid: "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c",
-    soundPath: "power\power-plans\audio\highperformance-notification.mp3"
+    soundPath: A_ScriptDir . "\assets\power-plans-audio\highperformance.mp3"
 }
 
 powersaver := {
     guid: "a1841308-3541-4fab-bc81-f71556f20b4a",
-    soundPath: "power\power-plans\audio\powersaver-level-up.mp3"
+    soundPath: A_ScriptDir . "\assets\power-plans-audio\powersaver.mp3"
 }
 
 highperformanceNoSleep := {
     guid: "9897998c-92de-4669-853f-b7cd3ecb2790",
-    soundPath: "power\power-plans\audio\studyplan-message-incoming.mp3"
+    soundPath: A_ScriptDir . "\assets\power-plans-audio\highperformance-nosleep.mp3"
 }
 
 ; ______________________________________________________________________________
@@ -88,7 +88,7 @@ notionPath := "C:\Users\XANOUS\AppData\Local\Programs\Notion\Notion.exe"
 todoPageTitle := "Today"
 todoPageID := "Today-8ad9eff7deff427ea6be2e947881686d?pvs=4"
 
-deadlinesPageTitle := "Goals & Deadlines"
+deadlinesPageTitle := "Deadlines"
 deadlinesPageID := "Goals-Deadlines-0faa17bbd634432baf8da2b396b7a278?pvs=4"
 
 notesPageTitle := "My Notes"
