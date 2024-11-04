@@ -2,6 +2,8 @@
 #SingleInstance Force
 SetWorkingDir A_InitialWorkingDir
 
+global timeLeft := 0
+
 if A_LineFile = A_ScriptFullPath && !A_IsCompiled
 {
     autoShutGui := Constructor()
@@ -58,6 +60,28 @@ Constructor()
     restartButton.OnEvent("Click", SystemRestart)
     cancelButton.OnEvent("Click", CancelAutoShutdown)
 
+    UpdateTrayTooltip(action) {
+        global timeLeft
+        if (timeLeft > 0) {
+            minutesLeft := Ceil(timeLeft / 60000)
+            switch action {
+                case "Sleep":
+                    A_IconTip := "CP: Auto Shutdown`nAbout to sleep in " minutesLeft " minutes"
+                case "Fast-Startup Shutdown":
+                    A_IconTip := "CP: Auto Shutdown`nHybrid shutdown in " minutesLeft " minutes"
+                case "Full Shutdown":
+                    A_IconTip := "CP: Auto Shutdown`nFull shutdown in " minutesLeft " minutes"
+                case "Restart":
+                    A_IconTip := "CP: Auto Shutdown`nRestarting in " minutesLeft " minutes"
+                default:
+                    A_IconTip := action " in " minutesLeft " minutes"
+            }
+            timeLeft -= 60000
+        } else {
+            SetTimer(() => UpdateTrayTooltip, 0) ; Stop the timer
+        }
+    }
+
     ShutdownHandler(actionType, shutdownState) {
         time := edit1.Value
         if time = 0 {
@@ -66,21 +90,28 @@ Constructor()
             edit1.Focus()
             return
         }
-        if !(time = "") AND (notifyCB.Value) {
-            alertTimeDelta := 2 ; minutes
-            if (time = alertTimeDelta) {
-                Run('python "email-notifier.py"' " " '"' actionType '"' " " alertTimeDelta, , "Hide")
-            }
-            else if (time > alertTimeDelta) {
-                notificationTime := Abs((time * 60 - (alertTimeDelta * 60)) * 1000)
-                ; Send notification email 2 minutes before action
-                SetTimer(() => Run('python "email-notifier.py"' " " '"' actionType '"' " " alertTimeDelta, , "Hide"), -notificationTime)
+        if !(time = "") {
+            if (notifyCB.Value) {
+                alertTimeDelta := 2 ; minutes
+                if (time = alertTimeDelta) {
+                    Run('python "email-notifier.py"' " " '"' actionType '"' " " alertTimeDelta, , "Hide")
+                }
+                else if (time > alertTimeDelta) {
+                    notificationTime := Abs((time * 60 - (alertTimeDelta * 60)) * 1000)
+                    ; Send notification email 2 minutes before action
+                    SetTimer(() => Run('python "email-notifier.py"' " " '"' actionType '"' " " alertTimeDelta, , "Hide"), -notificationTime)
+                }
             }
             autoShutGui.Destroy()
             shutdownTime := time * 60 * 1000
+            global timeLeft := shutdownTime
+            SetTimer(() => UpdateTrayTooltip(actionType), 60000)
+            UpdateTrayTooltip(actionType)
             SetTimer(shutdownState, -shutdownTime)
+            SetTimer(() => ExitApp(), -(shutdownTime + 5000))
         }
     }
+
 
     SystemSleep(*) {
         ShutdownHandler("Sleep", () => DllCall("PowrProf\SetSuspendState", "UInt", 0, "UInt", 0, "UInt", 0))
@@ -88,12 +119,12 @@ Constructor()
 
     FastStartupShutdown(*) {
         if (forceCB.Value) {
-            ShutdownHandler("FastStartup Shutdown", () =>
+            ShutdownHandler("Fast-Startup Shutdown", () =>
                 DllCall("Ntdll\RtlAdjustPrivilege", "UInt", 19, "UChar", true, "UChar", false, "IntP", 0)
                 DllCall("User32\ExitWindowsEx", "UInt", 0x00400000 | 0x00000001 | 0x00000004, "UInt", 1))
         }
         else {
-            ShutdownHandler("FastStartup Shutdown", () =>
+            ShutdownHandler("Fast-Startup Shutdown", () =>
                 DllCall("Ntdll\RtlAdjustPrivilege", "UInt", 19, "UChar", true, "UChar", false, "IntP", 0)
                 DllCall("User32\ExitWindowsEx", "UInt", 0x00400000 | 0x00000001, "UInt", 1))
         }
